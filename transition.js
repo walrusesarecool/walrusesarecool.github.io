@@ -32,9 +32,11 @@ function clickHandler(event) {
 
 function popstateHandler() {
   if (firstLoad) {
-    const newPage = location.pathname.split("/").slice(-1)
-    if (transitioning) console.log("hi")
-    if (!transitioning && currentPage != newPage) initiateTransition(newPage)
+    const newPage = location.pathname.split("/").slice(-1)[0].split(".")[0].trim()
+    if (!transitioning && currentPage != newPage) {
+      if (Object.keys(routerPathes).includes(newPage)) {initiateTransition(newPage, routerPathes[newPage])}
+      else {initiateTransition("index", "pages/index.html")}
+    }
   } else {
     firstLoad = true
   }
@@ -78,6 +80,7 @@ function initiateTransition(displayedLocation, actualLocation) {
     
     // Only add a history entry if the user went forward, not if they refreshed or went back
     if (displayedLocation != window.location) {
+      console.log(displayedLocation, actualLocation)
       history.replaceState({}, "", displayedLocation)
     }
   }).then(() => {
