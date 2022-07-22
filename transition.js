@@ -4,8 +4,16 @@ let transitioning = false
 let firstLoad = false
 
 // If we're reloading the page, go back to the last page we were on
-const transitionList = ["index.html", "projects.html"]
-if (`${currentPage}.html` in transitionList) initiateTransition(`${currentPage}.html`)
+const transitionList = JSON.parse(`
+{
+  "" : "index.html",
+  "index" : "index.html",
+  "projects" : "projects.html"
+}
+`)
+
+if (currentPage in transitionList.keys()) {initiateTransition(`${currentPage}.html`)}
+else if (currentPage in transitionList.values()) {initiateTransition(currentPage)}
 
 document.addEventListener("click", clickHandler)
 window.addEventListener("popstate", popstateHandler)
@@ -75,7 +83,6 @@ function initiateTransition(newLocation) {
     if (newLocation != window.location) {
       console.log(newLocation.split(".")[0])
       history.replaceState({path : newLocation}, "", newLocation.split(".")[0])
-      localStorage.setItem("lastVisited", `/${newLocation}`)
     }
   }).then(() => {
     return new Promise((resolve) => {
