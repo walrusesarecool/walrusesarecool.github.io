@@ -88,7 +88,7 @@ function initiateTransition(displayedLocation, actualLocation) {
     // Only add a history entry if the user went forward, not if they refreshed or went back
     if (displayedLocation != window.location) {
       console.log(displayedLocation, actualLocation)
-      history.replaceState({}, "", displayedLocation)
+      history.replaceState({}, "", `${window.location.origin}/${displayedLocation}`)
     }
   }).then(() => {
     return new Promise((resolve) => {
