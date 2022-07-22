@@ -5,12 +5,12 @@ let firstLoad = false
 
 // If we're reloading the page, go back to the last page we were on
 const routerPathes = {
-  "index" : "pages/index.html",
-  "projects" : "pages/projects.html"
+  "index" : "/pages/index.html",
+  "projects" : "/pages/projects.html"
 }
 
 if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(currentPage, routerPathes[currentPage])}
-else {initiateTransition("index", "pages/index.html")}
+else {initiateTransition("index", "/pages/index.html")}
 
 document.addEventListener("click", clickHandler)
 window.addEventListener("popstate", popstateHandler)
@@ -21,7 +21,7 @@ function clickHandler(event) {
   if (clickedLink) {
     clickedLink = (clickedLink.match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
     console.log("clicked link:", clickedLink)
-    
+
     // If the div has data-type="transition__override", the animation will not play and the page will reload
     if (event.target.dataset.type == "transition__override" || !clickedLink) return
   
@@ -29,7 +29,7 @@ function clickHandler(event) {
     event.preventDefault()
     if (!transitioning) {
       if (Object.keys(routerPathes).includes(clickedLink)) {initiateTransition(clickedLink, routerPathes[clickedLink])}
-      else {initiateTransition("index", "pages/index.html")}
+      else {initiateTransition("index", "/pages/index.html")}
     }
   
     // Safari is dumb and triggers a popstate event when the page loads, so this is a janky solution
@@ -42,7 +42,7 @@ function popstateHandler() {
     let newPage = (location.pathname.match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
     if (!transitioning && currentPage != newPage) {
       if (Object.keys(routerPathes).includes(newPage)) {initiateTransition(newPage, routerPathes[newPage])}
-      else {initiateTransition("index", "pages/index.html")}
+      else {initiateTransition("index", "/pages/index.html")}
     }
   } else {
     firstLoad = true
