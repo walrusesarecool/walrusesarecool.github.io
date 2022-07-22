@@ -12,8 +12,8 @@ const transitionList = JSON.parse(`
 }
 `)
 
-if (currentPage in transitionList.keys()) {initiateTransition(`${currentPage}.html`)}
-else if (currentPage in transitionList.values()) {initiateTransition(currentPage)}
+if (currentPage in Object.keys(transitionList)) {initiateTransition(`${currentPage}.html`)}
+else if (currentPage in Object.values(transitionList)) {initiateTransition(currentPage)}
 
 document.addEventListener("click", clickHandler)
 window.addEventListener("popstate", popstateHandler)
