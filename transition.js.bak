@@ -1,16 +1,17 @@
 // Add this stuff to the state management later
-let currentPage = location.pathname.split("/").slice(-1)[0].split(".")[0].trim()
+let currentPage = location.pathname.split("/").slice(-1)[0]
 let transitioning = false
 let firstLoad = false
 
 // If we're reloading the page, go back to the last page we were on
 const routerPathes = {
-  "index" : "pages/index.html",
-  "projects" : "pages/projects.html"
+  "" : "index.html",
+  "index" : "index.html",
+  "projects" : "projects.html"
 }
 
-if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(currentPage, routerPathes[currentPage])}
-else {initiateTransition("index", "pages/index.html")}
+if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(routerPathes[currentPage])}
+else if (Object.values(routerPathes).includes(currentPage)) {initiateTransition(currentPage)}
 
 document.addEventListener("click", clickHandler)
 window.addEventListener("popstate", popstateHandler)
@@ -40,22 +41,22 @@ function popstateHandler() {
   }
 }
 
-function initiateTransition(displayedLocation, actualLocation) {
+function initiateTransition(newLocation) {
   transitioning = true
 
   // Ensure newLocation is valid (UPDATE THIS TO USE THE ROUTER)
-  // newLocation = newLocation == "" ? "index.html" : newLocation
+  newLocation = newLocation == "" ? "index.html" : newLocation
 
   // Update content wrapper's list of classes to reflect change
   const contentWrapper = document.querySelector(`[data-type="transition__content-wrapper"]`)
   contentWrapper.classList.remove(`transition__${currentPage.slice(0, -5)}`)
-  contentWrapper.classList.add(`transition__${displayedLocation.slice(0, -5)}`)
+  contentWrapper.classList.add(`transition__${newLocation.slice(0, -5)}`)
 
   // Make an async get request to the location of the new content
   const getContent = new Promise((resolve, reject) => {
     const XHR = new XMLHttpRequest()
 
-    XHR.open("GET", actualLocation, true)
+    XHR.open("GET", newLocation, true)
     XHR.onreadystatechange = () => {
       if (XHR.readyState === 4) {
         resolve(new DOMParser().parseFromString(XHR.responseText, "text/html"))
@@ -77,8 +78,9 @@ function initiateTransition(displayedLocation, actualLocation) {
     contentWrapper.innerHTML = pageDOM.querySelector(`div[data-type="transition__content-wrapper"]`).innerHTML
     
     // Only add a history entry if the user went forward, not if they refreshed or went back
-    if (displayedLocation != window.location) {
-      history.replaceState({}, "", displayedLocation)
+    if (newLocation != window.location) {
+      console.log(newLocation.split(".")[0])
+      history.replaceState({path : newLocation}, "", newLocation.split(".")[0])
     }
   }).then(() => {
     return new Promise((resolve) => {
@@ -101,7 +103,7 @@ function initiateTransition(displayedLocation, actualLocation) {
 
         // Setting up for next page transition
         transitioning = false
-        currentPage = displayedLocation
+        currentPage = newLocation
 
         resolve()
       }, 750)
