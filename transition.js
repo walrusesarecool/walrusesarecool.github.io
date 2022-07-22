@@ -10,8 +10,8 @@ const routerPathes = {
   "/projects" : "projects.html"
 }
 
-if (currentPage in Object.keys(routerPathes)) {initiateTransition(routerPathes[`/${currentPage}`])}
-else if (currentPage in Object.values(routerPathes)) {initiateTransition(currentPage)}
+if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(routerPathes[`/${currentPage}`])}
+else if (Object.values(routerPathes).includes(currentPage)) {initiateTransition(currentPage)}
 
 document.addEventListener("click", clickHandler)
 window.addEventListener("popstate", popstateHandler)
