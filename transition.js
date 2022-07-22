@@ -17,21 +17,24 @@ window.addEventListener("popstate", popstateHandler)
 
 function clickHandler(event) {
   // Check if this clicked div will initiate a page transition
-  const clickedLink = (event.target.getAttribute("href").match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
-  console.log("clicked link:", clickedLink)
-
-  // If the div has data-type="transition__override", the animation will not play and the page will reload
-  if (event.target.dataset.type == "transition__override" || !clickedLink) return
-
-  // Prevent page reload and begin transitioning page
-  event.preventDefault()
-  if (!transitioning) {
-    if (Object.keys(routerPathes).includes(clickedLink)) {initiateTransition(clickedLink, routerPathes[clickedLink])}
-    else {initiateTransition("index", "pages/index.html")}
+  let clickedLink = event.target.getAttribute("href")
+  if (clickedLink) {
+    clickedLink = (clickedLink.match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
+    console.log("clicked link:", clickedLink)
+    
+    // If the div has data-type="transition__override", the animation will not play and the page will reload
+    if (event.target.dataset.type == "transition__override" || !clickedLink) return
+  
+    // Prevent page reload and begin transitioning page
+    event.preventDefault()
+    if (!transitioning) {
+      if (Object.keys(routerPathes).includes(clickedLink)) {initiateTransition(clickedLink, routerPathes[clickedLink])}
+      else {initiateTransition("index", "pages/index.html")}
+    }
+  
+    // Safari is dumb and triggers a popstate event when the page loads, so this is a janky solution
+    firstLoad = true
   }
-
-  // Safari is dumb and triggers a popstate event when the page loads, so this is a janky solution
-  firstLoad = true
 }
 
 function popstateHandler() {
