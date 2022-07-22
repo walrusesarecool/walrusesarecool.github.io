@@ -1,5 +1,5 @@
 // Add this stuff to the state management later
-let currentPage = (location.pathname.match(/[^\/].+?(?=\/)/) || [""])[0].split(".")[0].trim()
+let currentPage = (location.pathname.match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
 let transitioning = false
 let firstLoad = false
 
@@ -17,7 +17,7 @@ window.addEventListener("popstate", popstateHandler)
 
 function clickHandler(event) {
   // Check if this clicked div will initiate a page transition
-  const clickedLink = (event.target.getAttribute("href").match(/[^\/].+?(?=\/)/) || [""])[0].split(".")[0].trim()
+  const clickedLink = (event.target.getAttribute("href").match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
 
   // If the div has data-type="transition__override", the animation will not play and the page will reload
   if (event.target.dataset.type == "transition__override" || !clickedLink) return
@@ -35,7 +35,7 @@ function clickHandler(event) {
 
 function popstateHandler() {
   if (firstLoad) {
-    let newPage = (location.pathname.match(/[^\/].+?(?=\/)/) || [""])[0].split(".")[0].trim()
+    let newPage = (location.pathname.match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
     if (!transitioning && currentPage != newPage) {
       if (Object.keys(routerPathes).includes(newPage)) {initiateTransition(newPage, routerPathes[newPage])}
       else {initiateTransition("index", "pages/index.html")}
