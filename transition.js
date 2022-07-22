@@ -1,5 +1,5 @@
 // Add this stuff to the state management later
-let currentPage = location.pathname.split("/").slice(-1)[0].split(".")[0].trim()
+let currentPage = location.pathname.split("/").slice(1, -1)[0].split(".")[0].trim()
 let transitioning = false
 let firstLoad = false
 
@@ -32,7 +32,7 @@ function clickHandler(event) {
 
 function popstateHandler() {
   if (firstLoad) {
-    const newPage = location.pathname.split("/").slice(-1)[0].split(".")[0].trim()
+    const newPage = location.pathname.split("/").slice(1, -1)[0].split(".")[0].trim()
     if (!transitioning && currentPage != newPage) {
       if (Object.keys(routerPathes).includes(newPage)) {initiateTransition(newPage, routerPathes[newPage])}
       else {initiateTransition("index", "pages/index.html")}
