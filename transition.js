@@ -18,6 +18,7 @@ window.addEventListener("popstate", popstateHandler)
 function clickHandler(event) {
   // Check if this clicked div will initiate a page transition
   const clickedLink = (event.target.getAttribute("href").match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
+  console.log("clicked link:", clickedLink)
 
   // If the div has data-type="transition__override", the animation will not play and the page will reload
   if (event.target.dataset.type == "transition__override" || !clickedLink) return
