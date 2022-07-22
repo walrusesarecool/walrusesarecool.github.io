@@ -5,9 +5,9 @@ let firstLoad = false
 
 // If we're reloading the page, go back to the last page we were on
 const routerPathes = {
-  "/" : "index.html",
-  "/index" : "index.html",
-  "/projects" : "projects.html"
+  "" : "index.html",
+  "index" : "index.html",
+  "projects" : "projects.html"
 }
 
 if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(routerPathes[`/${currentPage}`])}
