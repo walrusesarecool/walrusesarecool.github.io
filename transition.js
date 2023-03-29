@@ -5,12 +5,13 @@ let firstLoad = false
 
 // If we're reloading the page, go back to the last page we were on
 const routerPathes = {
-  "index" : "/pages/index.html",
-  "projects" : "/pages/projects.html"
+  "": "/index.html",
+  "index": "/index.html",
+  "projects": "/pages/projects.html"
 }
 
-if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(currentPage, routerPathes[currentPage])}
-else {initiateTransition("index", "/pages/index.html")}
+if (Object.keys(routerPathes).includes(currentPage)) { initiateTransition(currentPage, routerPathes[currentPage]) }
+else { initiateTransition("index", "/pages/index.html") }
 
 document.addEventListener("click", clickHandler)
 window.addEventListener("popstate", popstateHandler)
@@ -24,14 +25,14 @@ function clickHandler(event) {
 
     // If the div has data-type="transition__override", the animation will not play and the page will reload
     if (event.target.dataset.type == "transition__override" || !clickedLink) return
-  
+
     // Prevent page reload and begin transitioning page
     event.preventDefault()
     if (!transitioning) {
-      if (Object.keys(routerPathes).includes(clickedLink)) {initiateTransition(clickedLink, routerPathes[clickedLink])}
-      else {initiateTransition("index", "/pages/index.html")}
+      if (Object.keys(routerPathes).includes(clickedLink)) { initiateTransition(clickedLink, routerPathes[clickedLink]) }
+      else { initiateTransition("index", "/pages/index.html") }
     }
-  
+
     // Safari is dumb and triggers a popstate event when the page loads, so this is a janky solution
     firstLoad = true
   }
@@ -41,8 +42,8 @@ function popstateHandler() {
   if (firstLoad) {
     let newPage = (location.pathname.match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
     if (!transitioning && currentPage != newPage) {
-      if (Object.keys(routerPathes).includes(newPage)) {initiateTransition(newPage, routerPathes[newPage])}
-      else {initiateTransition("index", "/pages/index.html")}
+      if (Object.keys(routerPathes).includes(newPage)) { initiateTransition(newPage, routerPathes[newPage]) }
+      else { initiateTransition("index", "/pages/index.html") }
     }
   } else {
     firstLoad = true
@@ -51,9 +52,6 @@ function popstateHandler() {
 
 function initiateTransition(displayedLocation, actualLocation) {
   transitioning = true
-
-  // Ensure newLocation is valid (UPDATE THIS TO USE THE ROUTER)
-  // newLocation = newLocation == "" ? "index.html" : newLocation
 
   // Update content wrapper's list of classes to reflect change
   const contentWrapper = document.querySelector(`[data-type="transition__content-wrapper"]`)
@@ -79,24 +77,24 @@ function initiateTransition(displayedLocation, actualLocation) {
     // When content is loaded, do the page out animation
     return new Promise((resolve) => {
       onpageout()
-      setTimeout(() => {resolve(pageDOM)}, 750)
+      setTimeout(() => { resolve(pageDOM) }, 750)
     })
   }).then((pageDOM) => {
     // Replace the content in the current wrapper with the content in the new wrapper
     contentWrapper.innerHTML = pageDOM.querySelector(`div[data-type="transition__content-wrapper"]`).innerHTML
-    
+
     // Only add a history entry if the user went forward, not if they refreshed or went back
-    if (displayedLocation != window.location) {
+    if (displayedLocation != window.location.href) {
       console.log(displayedLocation, actualLocation, `${window.location.origin}/${displayedLocation}`)
       history.replaceState({}, "", `${window.location.origin}/${displayedLocation}`)
     }
   }).then(() => {
     return new Promise((resolve) => {
       // Pause a little bit with the cover in front
-      setTimeout(() => {onpagein()}, 500)
+      setTimeout(() => { onpagein() }, 500)
 
       // The cover is out of the way now, move on to resetting the cover for next run
-      setTimeout(() => {resolve()}, 1250)
+      setTimeout(() => { resolve() }, 1250)
     })
   }).then(() => {
     return new Promise((resolve) => {
