@@ -20,7 +20,7 @@ function clickHandler(event) {
   let clickedLink = event.target.getAttribute("href")
   if (clickedLink) {
     clickedLink = (clickedLink.match(/[^\/].*?(?=\/|$)/i) || [""])[0].split(".")[0].trim()
-    console.log("clicked link:", clickedLink)
+    console.log("Clicked:", clickedLink)
 
     // If the div has data-type="transition__override", the animation will not play and the page will reload
     if (event.target.dataset.type == "transition__override" || !clickedLink) return
