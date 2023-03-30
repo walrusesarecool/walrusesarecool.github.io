@@ -76,7 +76,7 @@ function initiateTransition(displayedLocation, actualLocation) {
     // When content is loaded, do the page out animation
     return new Promise((resolve) => {
       onpageout()
-      setTimeout(() => { resolve(pageDOM) }, 750)
+      setTimeout(() => { resolve(pageDOM) }, 1000)
     })
   }).then((pageDOM) => {
     // Replace the content in the current wrapper with the content in the new wrapper
@@ -111,7 +111,7 @@ function initiateTransition(displayedLocation, actualLocation) {
   }).then(() => {
     return new Promise((resolve) => {
       // Pause a little bit with the cover in front
-      setTimeout(() => { onpagein() }, 750)
+      setTimeout(() => { onpagein() }, 1000)
 
       // The cover is out of the way now, move on to resetting the cover for next run
       setTimeout(() => { resolve() }, 1500)
