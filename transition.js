@@ -89,7 +89,7 @@ function initiateTransition(displayedLocation, actualLocation) {
     }
 
     const scripts = contentWrapper.getElementsByTagName("script")
-    scripts.forEach(path => {
+    for (const path of scripts) {
       (function(d, script) {
         script = d.createElement("script")
         script.type = "text/javascript"
@@ -97,7 +97,7 @@ function initiateTransition(displayedLocation, actualLocation) {
         script.src = path
         d.getElementsByTagName("body")[0].appendChild(script)
       } (document))
-    })
+    }
   }).then(() => {
     return new Promise((resolve) => {
       // Pause a little bit with the cover in front
