@@ -89,15 +89,24 @@ function initiateTransition(displayedLocation, actualLocation) {
     }
 
     const scripts = pageDOM.getElementsByTagName("script")
-    console.log(scripts)
     for (const path of scripts) {
-      console.log(path)
-      (function(d, script) {
-        script = d.createElement("script")
+      (function (d) {
+        const script = d.createElement("script")
         script.type = "text/javascript"
         script.async = true
         script.src = path.attributes.src.nodeValue
         d.getElementsByTagName("body")[0].appendChild(script)
+      } (document))
+    }
+
+    const styles = pageDOM.getElementsByTagName("link")
+    for (const sheet of styles) {
+      console.log(sheet)
+      (function (d) {
+        const style = d.createElement("link")
+        style.rel = "stylesheet"
+        style.href = sheet
+        d.getElementsByTagName("body")[0].appendChild(style)
       } (document))
     }
   }).then(() => {
