@@ -88,7 +88,16 @@ function initiateTransition(displayedLocation, actualLocation) {
       history.replaceState({}, "", `${window.location.origin}/${displayedLocation}`)
     }
 
-    location.reload()
+    contentWrapper.getElementsByTagName("script").forEach(tag => {
+      (function(d, script) {
+        script = d.createElement("script")
+        script.type = "text/javascript"
+        script.async = true
+        script.src = tag
+        d.getElementsByTagName("body")[0].appendChild(script)
+      } (document))
+    })
+
   }).then(() => {
     return new Promise((resolve) => {
       // Pause a little bit with the cover in front
