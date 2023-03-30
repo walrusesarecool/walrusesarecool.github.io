@@ -105,7 +105,7 @@ function initiateTransition(displayedLocation, actualLocation) {
       (function (d) {
         const style = d.createElement("link")
         style.rel = "stylesheet"
-        style.href = sheet
+        style.href = sheet.attributes.href.nodeValue
         d.getElementsByTagName("body")[0].appendChild(style)
       } (document))
     }
