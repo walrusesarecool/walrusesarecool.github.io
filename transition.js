@@ -88,6 +88,8 @@ function initiateTransition(displayedLocation, actualLocation) {
       history.replaceState({}, "", `${window.location.origin}/${displayedLocation}`)
     }
 
+    document.getElementsByTagName("title")[0].innerHTML = pageDOM.getElementsByTagName("title")[0].innerHTML
+
     const scripts = pageDOM.getElementsByTagName("script")
     for (const path of scripts) {
       (function (d) {
