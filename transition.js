@@ -111,10 +111,10 @@ function initiateTransition(displayedLocation, actualLocation) {
   }).then(() => {
     return new Promise((resolve) => {
       // Pause a little bit with the cover in front
-      setTimeout(() => { onpagein() }, 1000)
+      setTimeout(() => { onpagein() }, 500)
 
       // The cover is out of the way now, move on to resetting the cover for next run
-      setTimeout(() => { resolve() }, 1500)
+      setTimeout(() => { resolve() }, 1250)
     })
   }).then(() => {
     return new Promise((resolve) => {
