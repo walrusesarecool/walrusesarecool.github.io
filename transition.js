@@ -87,6 +87,8 @@ function initiateTransition(displayedLocation, actualLocation) {
       console.log(displayedLocation, actualLocation, `${window.location.origin}/${displayedLocation}`)
       history.replaceState({}, "", `${window.location.origin}/${displayedLocation}`)
     }
+
+    location.reload()
   }).then(() => {
     return new Promise((resolve) => {
       // Pause a little bit with the cover in front
