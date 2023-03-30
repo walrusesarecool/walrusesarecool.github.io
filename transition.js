@@ -91,11 +91,12 @@ function initiateTransition(displayedLocation, actualLocation) {
     const scripts = pageDOM.getElementsByTagName("script")
     console.log(scripts)
     for (const path of scripts) {
+      console.log(path)
       (function(d, script) {
         script = d.createElement("script")
         script.type = "text/javascript"
         script.async = true
-        script.src = path
+        script.src = path.attributes.src.nodeValue
         d.getElementsByTagName("body")[0].appendChild(script)
       } (document))
     }
