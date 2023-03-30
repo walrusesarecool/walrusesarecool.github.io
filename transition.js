@@ -89,12 +89,12 @@ function initiateTransition(displayedLocation, actualLocation) {
     }
 
     const scripts = contentWrapper.getElementsByTagName("script")
-    scripts.forEach(tag => {
+    scripts.forEach(path => {
       (function(d, script) {
         script = d.createElement("script")
         script.type = "text/javascript"
         script.async = true
-        script.src = tag
+        script.src = path
         d.getElementsByTagName("body")[0].appendChild(script)
       } (document))
     })
