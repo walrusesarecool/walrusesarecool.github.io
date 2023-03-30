@@ -6,7 +6,9 @@ let firstLoad = false
 // If we're reloading the page, go back to the last page we were on
 const routerPathes = {
   "index": "/pages/index/index.html",
-  "parallax": "/pages/parallax/index.html"
+  "parallax": "/pages/parallax/index.html",
+  "pages/index": "/pages/index/index.html",
+  "pages/parallax": "/pages/index/index.html",
   // "projects": "/pages/projects.html"
 }
 
