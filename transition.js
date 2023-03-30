@@ -101,7 +101,6 @@ function initiateTransition(displayedLocation, actualLocation) {
 
     const styles = pageDOM.getElementsByTagName("link")
     for (const sheet of styles) {
-      console.log(sheet)
       (function (d) {
         const style = d.createElement("link")
         style.rel = "stylesheet"
