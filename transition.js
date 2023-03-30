@@ -94,8 +94,9 @@ function initiateTransition(displayedLocation, actualLocation) {
     // Remove existing scripts and styles
     Array.prototype.slice.call(document.getElementsByTagName("script")).forEach(
       (item) => {
+        if (!item.attributes.src.nodeValue.match("transition.js")) {
         item.parentNode.removeChild(item)
-      }
+      }}
     )
 
     Array.prototype.slice.call(document.getElementsByTagName("link")).forEach(
@@ -108,13 +109,15 @@ function initiateTransition(displayedLocation, actualLocation) {
     // Add new file's scripts and styles
     const scripts = pageDOM.getElementsByTagName("script")
     for (const path of scripts) {
-      (function (d) {
-        const script = d.createElement("script")
-        script.type = "text/javascript"
-        script.async = true
-        script.src = path.attributes.src.nodeValue
-        d.getElementsByTagName("body")[0].appendChild(script)
-      } (document))
+      if (!path.attributes.src.nodeValue.match("transition.js")) {
+        (function (d) {
+          const script = d.createElement("script")
+          script.type = "text/javascript"
+          script.async = true
+          script.src = path.attributes.src.nodeValue
+          d.getElementsByTagName("body")[0].appendChild(script)
+        } (document))
+      }
     }
 
     const styles = pageDOM.getElementsByTagName("link")
