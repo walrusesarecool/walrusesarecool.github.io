@@ -91,6 +91,21 @@ function initiateTransition(displayedLocation, actualLocation) {
 
     document.getElementsByTagName("title")[0].innerHTML = pageDOM.getElementsByTagName("title")[0].innerHTML
 
+    // Remove existing scripts and styles
+    Array.prototype.slice.call(document.getElementsByTagName("script")).forEach(
+      (item) => {
+        item.parentNode.removeChild(item)
+      }
+    )
+
+    Array.prototype.slice.call(document.getElementsByTagName("link")).forEach(
+      (item) => {
+        if ((item.attributes.rel ? item.attributes.rel.nodeValue : false) == "stylesheet") {
+          item.parentNode.removeChild(item)
+      }}
+    )
+
+    // Add new file's scripts and styles
     const scripts = pageDOM.getElementsByTagName("script")
     for (const path of scripts) {
       (function (d) {
