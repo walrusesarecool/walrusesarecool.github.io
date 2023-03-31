@@ -108,7 +108,17 @@ function initiateTransition(displayedLocation, actualLocation) {
       }}
     )
 
-    // Add new file's scripts and styles
+    // Add new file's styles and scripts
+    const styles = pageDOM.getElementsByTagName("link")
+    for (const sheet of styles) {
+      (function (d) {
+        const style = d.createElement("link")
+        style.rel = "stylesheet"
+        style.href = sheet.attributes.href.nodeValue
+        d.getElementsByTagName("body")[0].appendChild(style)
+      } (document))
+    }
+
     const scripts = pageDOM.getElementsByTagName("script")
     for (const path of scripts) {
       if (!path.attributes.src.nodeValue.match("transition.js")) {
@@ -120,16 +130,6 @@ function initiateTransition(displayedLocation, actualLocation) {
           d.getElementsByTagName("body")[0].appendChild(script)
         } (document))
       }
-    }
-
-    const styles = pageDOM.getElementsByTagName("link")
-    for (const sheet of styles) {
-      (function (d) {
-        const style = d.createElement("link")
-        style.rel = "stylesheet"
-        style.href = sheet.attributes.href.nodeValue
-        d.getElementsByTagName("body")[0].appendChild(style)
-      } (document))
     }
   }).then(() => {
     return new Promise((resolve) => {
