@@ -1,3 +1,5 @@
+history.replaceState({}, "", `${window.location.origin}/theranos-podcast`)
+
 const player = new Shikwasa.Player({
   container: document.querySelector("#player"),
   themeColor: "#470909",
