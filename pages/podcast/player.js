@@ -4,8 +4,8 @@ const player = new Shikwasa.Player({
   audio: {
     title: "S1 E1: Questions to Stop the Bleeding",
     artist: "Alex's Podcast",
-    cover: "ep-art.png",
-    src: "ep-recording.wav",
+    cover: "/pages/podcast/ep-art.png",
+    src: "/pages/podcast/ep-recording.wav",
   }
 })
 
