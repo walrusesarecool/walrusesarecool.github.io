@@ -9,6 +9,7 @@ const routerPathes = {
   "parallax": "/pages/parallax/index.html",
   "pages/index": "/pages/index/index.html",
   "pages/parallax": "/pages/index/index.html",
+  "school/theranos-podcast": "/pages/podcast/index.html"
   // "projects": "/pages/projects.html"
 }
 
