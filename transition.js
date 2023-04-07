@@ -7,7 +7,7 @@ let firstLoad = false
 const routerPathes = {
   "index": "/pages/index/index.html",
   "parallax": "/pages/parallax/index.html",
-  "theranos": "/pages/podcast/index.html"
+  "pages/podcast": "/pages/podcast/index.html"
 }
 
 if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(currentPage, routerPathes[currentPage])}
@@ -123,7 +123,6 @@ function initiateTransition(displayedLocation, actualLocation) {
         (function (d) {
           const script = d.createElement("script")
           script.type = "text/javascript"
-          script.async = true
           script.src = path.attributes.src.nodeValue
           d.getElementsByTagName("body")[0].appendChild(script)
         } (document))
