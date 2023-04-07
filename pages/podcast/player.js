@@ -2,10 +2,10 @@ const player = new Shikwasa.Player({
   container: document.querySelector("#player"),
   themeColor: "#470909",
   audio: {
-    title: "S1 E1: Bleeding Questions",
+    title: "S1 E1: Questions to Stop the Bleeding",
     artist: "Alex's Podcast",
     cover: "ep-art.png",
-    src: "https://shikwasa.js.org//assets/STS-133_FD11_Mission_Status_Briefing.mp3",
+    src: "ep-recording.wav",
   }
 })
 
