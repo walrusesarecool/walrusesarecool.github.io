@@ -7,9 +7,7 @@ let firstLoad = false
 const routerPathes = {
   "index": "/pages/index/index.html",
   "parallax": "/pages/parallax/index.html",
-  "pages/index": "/pages/index/index.html",
-  "pages/parallax": "/pages/index/index.html",
-  "school/theranos-podcast": "/pages/podcast/index.html"
+  "theranos": "/pages/podcast/index.html"
 }
 
 if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(currentPage, routerPathes[currentPage])}
