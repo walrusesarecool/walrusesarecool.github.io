@@ -10,6 +10,7 @@ const routerPathes = {
   "pages/index": "/pages/index/index.html",
   "pages/parallax": "/pages/index/index.html",
   "school/theranos-podcast": "/pages/podcast/index.html"
+}
 
 if (Object.keys(routerPathes).includes(currentPage)) {initiateTransition(currentPage, routerPathes[currentPage])}
 else {initiateTransition("index", "/pages/index/index.html")}
