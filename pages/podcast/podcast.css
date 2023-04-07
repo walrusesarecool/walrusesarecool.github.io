@@ -1,4 +1,9 @@
 #wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   font-family: Nunito;
   background-color: #0b0b1e;
   overflow: hidden
